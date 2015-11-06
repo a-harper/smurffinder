@@ -18,10 +18,12 @@ Make sure you have the required packages & django apps. SmurfFinder requires Ste
         'smurffinder',
     )
 
-2. Include the SmurfFinder URLconf in your project urls.py like this::
+2. Add a "STEAM_API_KEY" config entry to your settings.py. This is necessary for accessing Steam objects via API.
+
+3. Include the SmurfFinder URLconf in your project urls.py like this::
 
     url(r'^smurf/', include('smurffinder.urls', namespace="smurffinder")),
 
-3. Start the development server and visit http://127.0.0.1:8000/smurf
+4. Start the development server and visit http://127.0.0.1:8000/smurf
    
-4. Start finding!
+5. Start finding!
