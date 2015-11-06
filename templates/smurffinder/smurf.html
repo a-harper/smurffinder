@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Info for {{ user.name }}</title>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static "smurffinder/css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="{{ user.avatar }}"> {{ user.name }}</h1>
+        {% if info_message %}
+        <h6>{{ info_message }}</h6>
+        {% endif %}
+        <h2 style="padding-top:50px;">Potential Smurf Matches:</h2>
+
+        {% if identical_name_matches|length > 0 %}
+            <h3>Identical Name Matches:</h3>
+            <table class="table table-bordered table-hover" style="padding-top:50px;">
+                <tr>
+                    <td>Name</td>
+                    <td>Profile Link</td>
+                    <td>Match</td>
+                </tr>
+                {%  for friend, matches in identical_name_matches %}
+                    <tr>
+                        <td><img src="{{ friend.avatar }}"> {{ friend.name }}</td>
+                        <td><a href="{{ friend.profile_url }}">{{ friend.profile_url }}</a></td>
+                        <td>{{ matches }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if identical_avatar_matches|length > 0 %}
+            <h3>Identical Avatar Matches:</h3>
+            <table class="table table-bordered table-hover" style="padding-top:50px;">
+                <tr>
+                    <td>Name</td>
+                    <td>Profile Link</td>
+                    <td>Match</td>
+                </tr>
+                {%  for friend, matches in identical_avatar_matches %}
+                    <tr>
+                        <td><img src="{{ friend.avatar }}"> {{ friend.name }}</td>
+                        <td><a href="{{ friend.profile_url }}">{{ friend.profile_url }}</a></td>
+                        <td>{{ matches }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+
+        {% if partial_name_matches|length > 0 %}
+            <h3>Partial Name Matches:</h3>
+            <table class="table table-bordered table-hover" style="padding-top:50px;">
+                <tr>
+                    <td>Name</td>
+                    <td>Profile Link</td>
+                    <td>Match</td>
+                </tr>
+                {%  for friend, matches in partial_name_matches %}
+                    <tr>
+                        <td><img src="{{ friend.avatar }}"> {{ friend.name }}</td>
+                        <td><a href="{{ friend.profile_url }}">{{ friend.profile_url }}</a></td>
+                        <td>{% for match in matches %}{{ match.0 }} --- {{ match.1 }} ::: <b>Similarity: {{ match.2 }}%</b><br /><br />{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+
+        {% if partial_avatar_matches|length > 0 %}
+            <h3>Partial Avatar Matches:</h3>
+            <table class="table table-bordered table-hover" style="padding-top:50px;">
+                <tr>
+                    <td>Name</td>
+                    <td>Profile Link</td>
+                    <td>Match</td>
+                </tr>
+                {%  for friend, matches in partial_avatar_matches %}
+                    <tr>
+                        <td><img src="{{ friend.avatar }}"> {{ friend.name }}</td>
+                        <td><a href="{{ friend.profile_url }}">{{ friend.profile_url }}</a></td>
+                        <td>{{ matches }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+
+    <script src="{% static "smurffinder/js/jquery.js" %}"></script>
+    <script src="{% static "smurffinder/js/bootstrap.js" %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.collapse').click(function(e){
+                $(this).parent().parent().next().find('.detail-container').toggle();
+                var text = $(this).text();
+                $(this).text(text == "+" ? "-" : "+");
+                e.preventDefault();
+            });
+            $('collapse-name').click(function(e{
+                $(this).parent().parent().next().find('.detail-container').toggle();
+                var el = $(this).parent().prev().children('a:first');
+                var text = el.text();
+                el.text(text == "+" ? "-" : "+");
+                e.preventDefault();
+            });
+        });
+
+    </script>
+</body>
+</html>

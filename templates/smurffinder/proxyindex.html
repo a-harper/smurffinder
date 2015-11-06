@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+     <!-- Bootstrap -->
+    {% load staticfiles %}
+    <link href="{% static "smurffinder/css/bootstrap.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <h1>Enter profile link:</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'smurffinder:smurfproxy' %}" method="post">
+        {% csrf_token %}
+        <input type="Text" name="steamid_smurf" id="id_steamid_smurf" />
+        <label for="id_steamid_smurf">Smurf</label>
+        <input type="Text" name="steamid_friend" id="id_steamid_friend" />
+        <label for="id_steamid_friend">Friend</label>
+    <input type="submit" value="Search"/>
+    </form>
+    </div>
+    <script src="{% static "smurffinder/js/jquery.js" %}"></script>
+    <script src="{% static "smurffinder/js/bootstrap.js" %}"></script>
+</body>
+</html>
